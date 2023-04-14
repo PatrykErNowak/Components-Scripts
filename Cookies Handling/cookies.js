@@ -27,16 +27,11 @@ function setCookie(cName, cValue, options) {
   
   function getCookie(cName) {
     if (document.cookie !== '') {
-      const name = encodeURIComponent(cName);
-      const cookies = document.cookie.split(';');
-      let cookieValue;
-  
-      cookies.forEach((cookie) => {
-        const test = cookie.trim().startsWith(name);
-        if (test) {
-          cookieValue = cookie.substring(cookie.indexOf('=') + 1);
-        }
-      });
-      return cookieValue;
+      const cookies = document.cookie.split('; ');
+      for (const cookie of cookies) {
+        const [name, value] = cookie.split('=')
+        if (encodeURIComponent(cName) === name) return encodeURIComponent(value)
+      }
     }
+    return undefined
   }
